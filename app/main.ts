@@ -31,7 +31,7 @@ view.when(function () {
       l.visible = false;
     })
     .getItemAt(0);
-  assignedAddressLayer.popupTemplate.actions = [makeFormAction];
+  (assignedAddressLayer as __esri.FeatureLayer).popupTemplate.actions = [makeFormAction] as unknown as __esri.Collection<__esri.ActionButton>;
 });
 
 view.popup.on("trigger-action", function (event) {
