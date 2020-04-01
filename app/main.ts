@@ -62,7 +62,7 @@ async function getAddressAssignment() {
     }
   }
   console.log(pdfData);
-  const url = new URL("http://address-form-filler.herokuapp.com/get-form");
+  const url = new URL("https://address-form-filler.herokuapp.com/get-form");
   Object.keys(pdfData).forEach((k) => {
     url.searchParams.append(k, pdfData[k]);
   });

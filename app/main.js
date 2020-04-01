@@ -103,7 +103,7 @@ define(["require", "exports", "esri/WebMap", "esri/views/MapView", "./field-mapp
                     }
                 }
                 console.log(pdfData);
-                url = new URL("http://address-form-filler.herokuapp.com/get-form");
+                url = new URL("https://address-form-filler.herokuapp.com/get-form");
                 Object.keys(pdfData).forEach(function (k) {
                     url.searchParams.append(k, pdfData[k]);
                 });
