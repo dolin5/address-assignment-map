@@ -2,7 +2,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no"/>
-    <title>ArcGIS JSAPI 4.14 TypeScript Demo</title>
+    <title>Address Assigner</title>
     <link rel="stylesheet" href="https://js.arcgis.com/4.14/esri/themes/light/main.css">
     <style>
       html,
@@ -12,6 +12,31 @@
         margin: 0;
         height: 100%;
         width: 100%;
+      }
+      #info {
+        padding: 14px;
+        border-radius: 5px;
+      }
+
+      #update {
+        padding: 6px;
+      }
+
+      #form {
+        background: #fff;
+      }
+
+      /* replaces esri-widget--panel */
+      .scroller {
+        overflow-x: hidden;
+        overflow-y: auto;
+      }
+      .editor {
+        cursor:crosshair;
+      }
+      .enabled {
+        background-color: #f0f0f0;
+        color: #2e2e2e;
       }
     </style>
     <script>
@@ -29,6 +54,25 @@
   </head>
   <body>
     <div id="viewDiv"></div>
+    <div id="info" class="esri-widget esri-hidden">
+      <h3>Select a feature or create new by clicking the edit button</h3>
+    </div>
+    <div id="update" class="esri-widget esri-hidden">
+      <div id="form" class="scroller esri-component"></div>
+      <input
+        type="button"
+        class="esri-button"
+        value="Update assignment"
+        id="btnUpdate"
+        style="margin-bottom:5px"
+      />
+      <input
+        type="button"
+        class="esri-button"
+        value="Create form"
+        id="btnCreate"
+      />
+    </div>
     <script>require(["app/main"]);</script>
   </body>
 </html>
