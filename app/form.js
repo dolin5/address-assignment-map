@@ -68,6 +68,118 @@ define(["require", "exports", "esri/widgets/FeatureForm", "esri/Graphic", "esri/
             container: "form",
             groupDisplay: "sequential",
             layer: main_1.featureLayer,
+            fieldConfig: [
+                {
+                    label: "Assignment info",
+                    description: "",
+                    fieldConfig: [
+                        {
+                            name: "ASSIGNMENT_DATE",
+                            label: "Date",
+                        },
+                        {
+                            name: "PIRF_NUMBER",
+                            label: "PIRF#",
+                        },
+                    ],
+                },
+                {
+                    label: "Address info",
+                    description: "",
+                    fieldConfig: [
+                        {
+                            name: "ADDRESS_NUMBER",
+                            label: "Number",
+                        },
+                        {
+                            name: "DIRPRE",
+                            label: "Prefix",
+                        },
+                        {
+                            name: "ROADNAME",
+                            label: "Road name",
+                        },
+                        {
+                            name: "ROADTYPE",
+                            label: "Road type",
+                        },
+                        {
+                            name: "DIRSUF",
+                            label: "Suffix",
+                        },
+                        {
+                            name: "Unit",
+                            label: "Unit",
+                        },
+                    ],
+                },
+                {
+                    label: "Applicant",
+                    description: "",
+                    fieldConfig: [
+                        {
+                            name: "CONTACT_INDIVIDUAL",
+                            label: "Name",
+                        },
+                        {
+                            name: "CONTACT_PHONE",
+                            label: "Phone",
+                        },
+                        {
+                            name: "CONTACT_EMAIL",
+                            label: "Email",
+                        },
+                    ],
+                },
+                {
+                    label: "Property info",
+                    description: "",
+                    fieldConfig: [
+                        {
+                            name: "TOWNSHIP_RANGE",
+                            label: "Township",
+                        },
+                        {
+                            name: "PLSS_SECTION",
+                            label: "Section",
+                        },
+                        {
+                            name: "SUBDIVISION",
+                            label: "Subdivision",
+                        },
+                        {
+                            name: "BLOCK",
+                            label: "Block",
+                        },
+                        {
+                            name: "LOT_TRACT",
+                            label: "Lot/Tract",
+                        },
+                        {
+                            name: "COS",
+                            label: "COS",
+                        },
+                        {
+                            name: "DEED_REF",
+                            label: "Deed Ref",
+                        },
+                    ],
+                },
+                {
+                    label: "Structure",
+                    description: "",
+                    fieldConfig: [
+                        {
+                            name: "STRUCTURE_TYPE",
+                            label: "Structure type",
+                        },
+                        {
+                            name: "COMMENTS",
+                            label: "Comments",
+                        },
+                    ],
+                },
+            ],
         });
         // Disable popup
         main_1.view.popup.autoOpenEnabled = false;
@@ -157,7 +269,7 @@ define(["require", "exports", "esri/widgets/FeatureForm", "esri/Graphic", "esri/
                         editFeature = new Graphic_1.default({
                             geometry: point,
                             attributes: {
-                                ASSIGNMENT_DATE: new Date()
+                                ASSIGNMENT_DATE: new Date(),
                             },
                         });
                         return [4 /*yield*/, getParcelInfo(point)];
@@ -254,7 +366,8 @@ define(["require", "exports", "esri/widgets/FeatureForm", "esri/Graphic", "esri/
                     pdfData[k] = "";
                     if (v === "ASSIGNMENT_DATE") {
                         date = new Date(updated[v]);
-                        pdfData[k] = date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+                        pdfData[k] =
+                            date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
                         continue;
                     }
                     if (v instanceof Array) {

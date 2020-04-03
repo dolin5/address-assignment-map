@@ -7,7 +7,6 @@ import { view, featureLayer } from "./main";
 import AddPoint from "./AddPoint";
 import FieldMappings from "./field-mappings";
 
-
 import esri = __esri;
 
 interface ApplyEditsParams {
@@ -35,6 +34,118 @@ export function initForm() {
     container: "form",
     groupDisplay: "sequential", // only display one group at a time
     layer: featureLayer,
+    fieldConfig: [
+      {
+        label: "Assignment info",
+        description: "",
+        fieldConfig: [
+          {
+            name: "ASSIGNMENT_DATE",
+            label: "Date",
+          },
+          {
+            name: "PIRF_NUMBER",
+            label: "PIRF#",
+          },
+        ],
+      },
+      {
+        label: "Address info",
+        description: "",
+        fieldConfig: [
+          {
+            name: "ADDRESS_NUMBER",
+            label: "Number",
+          },
+          {
+            name: "DIRPRE",
+            label: "Prefix",
+          },
+          {
+            name: "ROADNAME",
+            label: "Road name",
+          },
+          {
+            name: "ROADTYPE",
+            label: "Road type",
+          },
+          {
+            name: "DIRSUF",
+            label: "Suffix",
+          },
+          {
+            name: "Unit",
+            label: "Unit",
+          },
+        ],
+      },
+      {
+        label: "Applicant",
+        description: "",
+        fieldConfig: [
+          {
+            name: "CONTACT_INDIVIDUAL",
+            label: "Name",
+          },
+          {
+            name: "CONTACT_PHONE",
+            label: "Phone",
+          },
+          {
+            name: "CONTACT_EMAIL",
+            label: "Email",
+          },
+        ],
+      },
+      {
+        label: "Property info",
+        description: "",
+        fieldConfig: [
+          {
+            name: "TOWNSHIP_RANGE",
+            label: "Township",
+          },
+          {
+            name: "PLSS_SECTION",
+            label: "Section",
+          },
+          {
+            name: "SUBDIVISION",
+            label: "Subdivision",
+          },
+          {
+            name: "BLOCK",
+            label: "Block",
+          },
+          {
+            name: "LOT_TRACT",
+            label: "Lot/Tract",
+          },
+          {
+            name: "COS",
+            label: "COS",
+          },
+          {
+            name: "DEED_REF",
+            label: "Deed Ref",
+          },
+        ],
+      },
+      {
+        label: "Structure",
+        description: "",
+        fieldConfig: [
+          {
+            name: "STRUCTURE_TYPE",
+            label: "Structure type",
+          },
+          {
+            name: "COMMENTS",
+            label: "Comments",
+          },
+        ],
+      },
+    ],
     // fieldConfig: [
     //   {
     //     label: "Address Information",
@@ -140,8 +251,7 @@ function applyAttributeUpdates(params: ApplyEditsParams) {
       if (editsResult.addFeatureResults.length > 0) {
         const objectId = editsResult.addFeatureResults[0].objectId;
         selectFeature(objectId);
-      }
-      else if (editsResult.updateFeatureResults.length>0 ){
+      } else if (editsResult.updateFeatureResults.length > 0) {
         const objectId = editsResult.updateFeatureResults[0].objectId;
         selectFeature(objectId);
       }
@@ -170,7 +280,7 @@ async function mapClick(mapPoint: esri.Point) {
   editFeature = new Graphic({
     geometry: point,
     attributes: {
-      ASSIGNMENT_DATE:new Date()
+      ASSIGNMENT_DATE: new Date(),
     },
   });
   await getParcelInfo(point);
@@ -257,15 +367,16 @@ async function getAddressAssignment() {
   let pdfData = {};
   for (let [k, v] of Object.entries(FieldMappings)) {
     pdfData[k] = "";
-    if (v==="ASSIGNMENT_DATE"){
+    if (v === "ASSIGNMENT_DATE") {
       let date = new Date(updated[v]);
-      pdfData[k]=date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
+      pdfData[k] =
+        date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
       continue;
     }
     if (v instanceof Array) {
       pdfData[k] = v.reduce((accumulator, currentValue) => {
-        if (updated[currentValue]===null||updated[currentValue]===" "){
-          updated[currentValue]=""
+        if (updated[currentValue] === null || updated[currentValue] === " ") {
+          updated[currentValue] = "";
         }
         return accumulator + updated[currentValue] + " ";
       }, "");
@@ -273,7 +384,7 @@ async function getAddressAssignment() {
     } else {
       pdfData[k] = updated[v];
     }
-    if (pdfData[k] === undefined||pdfData[k]===null||pdfData[k]===" ") {
+    if (pdfData[k] === undefined || pdfData[k] === null || pdfData[k] === " ") {
       pdfData[k] = "";
     }
   }
